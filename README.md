@@ -19,7 +19,7 @@ App({
 </code></pre>
 ## 注册事件
 ### 一、Page注册事件
-再page里重写registerEvent方法:
+在page里重写registerEvent方法:
 <pre><code>
 registerEvent: function() {
     return {
