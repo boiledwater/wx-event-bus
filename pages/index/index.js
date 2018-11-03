@@ -16,9 +16,13 @@ Page({
     })
   },
   bindMotto: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    getApp().getWXEventBus().postEvent([{
+      name: 'test',
+      data: 'this is data'
+    }, {
+      name: 'component_test',
+      data: 'this is data for component'
+    }]);
   },
   onLoad: function() {
     if (app.globalData.userInfo) {
@@ -55,5 +59,13 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  registerEvent: function() {
+    return {
+      test: function() {
+        console.log('this is test event:' + JSON.stringify(arguments));
+      }
+    };
+
   }
 })

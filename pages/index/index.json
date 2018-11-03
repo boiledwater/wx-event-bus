@@ -1,1 +1,5 @@
-{}
+{
+  "usingComponents": {
+    "demo": "/components/demo/index"
+  }
+}
