@@ -61,6 +61,7 @@ registerEvent: function() {
           }//该数据将作为参数传递给该注册事件的回调方法;
         });
 </code></pre>
+或者如下发布多个事件。
  <pre><code>
  getApp().getWXEventBus().postEvent([{
           name: 'refreshData',
