@@ -7,7 +7,8 @@ Page({
     motto: '点我',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    text: 'Hello page'
   },
   //事件处理函数
   bindViewTap: function() {
@@ -15,13 +16,16 @@ Page({
       url: '../logs/logs'
     })
   },
-  bindMotto: function() {
+  postComponetEvent: function() {
+    getApp().getWXEventBus().postEvent({
+      name: 'component_event_test',
+      data: 'Hello component event'
+    });
+  },
+  postPageEvent: function() {
     getApp().getWXEventBus().postEvent([{
-      name: 'test',
-      data: 'this is data'
-    }, {
-      name: 'component_test',
-      data: 'this is data for component'
+      name: 'page_event_test',
+      data: 'Hello page event'
     }]);
   },
   onLoad: function() {
@@ -62,7 +66,10 @@ Page({
   },
   registerEvent: function() {
     return {
-      test: function() {
+      page_event_test: function() {
+        this.setData({
+          text: arguments[0]
+        });
         console.log('this is test event:' + JSON.stringify(arguments));
       }
     };

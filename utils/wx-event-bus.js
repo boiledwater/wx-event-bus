@@ -2,7 +2,7 @@
     Page = (function(page) {
       return function() {
         if (arguments.length > 0) {
-          let obj = arguments[0];
+          var obj = arguments[0];
           ['onLoad', 'onUnload'].forEach(function(item) {
             if (!obj[item]) {
               obj[item] = function() {};
@@ -13,8 +13,7 @@
               WX_EventBus.registerPage(this);
               try {
                 if (typeof(this.registerEvent) == 'function') {
-                  var _register_event = this.registerEvent();
-                  WX_EventBus.registerEvent(this, _register_event);
+                  WX_EventBus.registerEvent(this, this.registerEvent());
                 }
               } catch (e) {
                 console.error(e);
@@ -67,17 +66,15 @@
           }
 
           arguments[0].lifetimes.attached = (function(_attached) {
-            return function() {
-              WX_EventBus.registerComponent(this);
-              _attached.apply(this, arguments);
+            return function() {                            
               try {
-                var _register_event = this.registerEvent();
-                WX_EventBus.registerEvent(this, _register_event);
+                WX_EventBus.registerComponentEvent(this, this.registerEvent());
               } catch (e) {
                 console.error(e);
               }
+              _attached.apply(this, arguments);
             }
-          })(_attached, arguments[0]);
+          })(_attached);
 
           arguments[0].lifetimes.detached = (function(_detached) {
             return function() {
@@ -148,22 +145,21 @@
     /**
      * 同步执行
      */
-    postRoute: function(_route, _call_back) {
-      console.log('post route:' + _route);
-      if (Array.isArray(_route)) {
-        for (var i = 0, length = _route.length; i < length; i++) {
-          this._postRoute(_route[i], _call_back)
+    find: function(_name, _call_back) {
+      if (Array.isArray(_name)) {
+        for (var i = 0, length = _name.length; i < length; i++) {
+          this._find(_name[i], _call_back)
         }
       } else {
-        this._postRoute(_route, _call_back)
+        this._find(_name, _call_back)
       }
     },
-    _postRoute: function(_route, _call_back) {
+    _find: function (_name, _call_back) {
       var _event_bus = getApp().__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
-        var _page = _event_bus[i].page;
-        if (_route && _page.route == _route) {
-          _call_back.apply(_page, arguments);
+        var _source = _event_bus[i].source;
+        if (_name && _source.name == _name) {
+          _call_back.apply(_source, arguments);
         }
       }
     },
@@ -180,7 +176,7 @@
         this._postEvent(_event_obj, _name)
       }
     },
-    _postEvent: function (_event_obj, _name) {
+    _postEvent: function(_event_obj, _name) {
       var _event_bus = getApp().__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
         var _source = _event_bus[i].source;
@@ -196,12 +192,12 @@
         if (_name && _source.name != _name) {
           continue;
         }
-        var _asyn_function = (function (_source, _event_function, _event_data) {
+        var _asyn_function = (function(_source, _event_function, _event_data) {
           return function() {
             _event_function.call(_source, _event_data);
           }
         })(_source, _event_function, _event_obj.data);
-        getApp().asyncFunction(_asyn_function, (function (_source, _event_obj) {
+        getApp().asyncFunction(_asyn_function, (function(_source, _event_obj) {
           return function() {
             console.log(_source.name + ':invoke event success;' + JSON.stringify(_event_obj));
           };
@@ -213,7 +209,15 @@
      */
     registerEvent: function(_this, _event) {
       _this.__bus_event = _event;
-    }
+    },
+    registerComponentEvent: function(_this, _event) {
+      _this.__bus_event = _event;
+      this.registerComponent(_this)
+    },
+    registerAppEvent: function(_this, _event) {
+      _this.__bus_event = _event;
+      this.registerApp(_this);
+    },
   }
   module.exports = {
     WX_EventBus: WX_EventBus

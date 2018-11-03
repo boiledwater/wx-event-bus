@@ -1,2 +1,2 @@
 <!--components/demo/index.wxml-->
-<text>this is demo component</text>
+<text>{{text}}</text>

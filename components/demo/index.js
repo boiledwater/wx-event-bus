@@ -11,18 +11,14 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    text: 'Hello component'
   },
   lifetimes: {
     attached: function() {
-      console.log('-------attached1--------');
-      console.log(arguments);
-      console.log(this);
+
     },
     detached: function() {
-      console.log('-------detached1--------');
-      console.log(arguments);
-      console.log(this);
+
     }
 
   },
@@ -30,10 +26,13 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    registerEvent: function () {
+    registerEvent: function() {
       return {
-        component_test: function () {
-          console.log('this is component test event:' + JSON.stringify(arguments));
+        component_event_test: function() {
+          this.setData({
+            text: arguments[0]
+          });
+          console.log('this is component event:' + JSON.stringify(arguments));
         }
       };
     }
