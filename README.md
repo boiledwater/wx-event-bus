@@ -32,8 +32,24 @@ registerEvent: function() {
 以上就在page对象里注册了refreshData事件;当收到相应事件的时候，就调用相应的方法；
 
 ### 二、Component注册事件
-再component里重写registerEvent方法,类似page里注册事件
-
+再component methods里重写registerEvent方法,类似page里注册事件.
+<pre><code>
+/**
+   * 组件的方法列表
+   */
+  methods: {
+    registerEvent: function() {
+      return {
+        component_event_test: function() {
+          this.setData({
+            text: arguments[0]
+          });
+          console.log('this is component event:' + JSON.stringify(arguments));
+        }
+      };
+    }
+  }
+  </code></pre>
  ## 发布事件;
  支持一次发布多个事件；
  
