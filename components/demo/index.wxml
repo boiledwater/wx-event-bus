@@ -1,2 +1,2 @@
 <!--components/demo/index.wxml-->
-<text>{{text}}</text>
+<text>component come from {{text}}</text>

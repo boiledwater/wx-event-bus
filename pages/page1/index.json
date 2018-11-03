@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "Page1",
   "usingComponents": {
     "demo": "/components/demo/index"
   }

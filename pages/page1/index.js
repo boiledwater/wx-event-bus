@@ -8,24 +8,24 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    text: 'Hello page'
+    text: '？'
   },
   //事件处理函数
-  bindViewTap: function() {
+  toPage2: function() {
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '/pages/page2/index'
     })
   },
   postComponetEvent: function() {
     getApp().getWXEventBus().postEvent({
       name: 'component_event_test',
-      data: 'Hello component event'
+      data: 'page1'
     });
   },
   postPageEvent: function() {
     getApp().getWXEventBus().postEvent([{
       name: 'page_event_test',
-      data: 'Hello page event'
+      data: 'page1'
     }]);
   },
   onLoad: function() {
