@@ -2,7 +2,7 @@
 实现思路来源于android开发常用的event bus第三方工具包;
 ## 如何引用event bus
    #### 1)把wx-event-bus.js拷贝到相应utils目录
-   ###  2)App.js里引用并初始化
+   #### 2)App.js里引用并初始化
 <pre><code>   
 import {
   WX_EventBus
