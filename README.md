@@ -32,7 +32,7 @@ registerEvent: function() {
 以上就在page对象里注册了refreshData事件;当收到相应事件的时候，就调用相应的方法；
 
 ### 二、Component注册事件
-再component methods里重写registerEvent方法,类似page里注册事件.
+在component methods里重写registerEvent方法,类似page里注册事件.
 <pre><code>
 /**
    * 组件的方法列表
