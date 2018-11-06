@@ -1,4 +1,9 @@
 主要是用于小程序组件间通信；包括:page之间通信,component之间通信,page与component之间通信;
+<pre><code>  
+使用场景：
+A页面执行了某个操作后，B界面要有相应的变化；
+此时，你想要在B界面注册相关事件，在A界面发布相应时间；
+</code></pre>
 实现思路来源于android开发常用的event bus第三方工具包;
 ## 如何引用event bus
    #### 1)把wx-event-bus.js拷贝到相应utils目录
