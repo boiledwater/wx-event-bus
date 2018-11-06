@@ -66,7 +66,7 @@
           }
 
           arguments[0].lifetimes.attached = (function(_attached) {
-            return function() {                            
+            return function() {
               try {
                 WX_EventBus.registerComponentEvent(this, this.registerEvent());
               } catch (e) {
@@ -154,12 +154,11 @@
         this._find(_name, _call_back)
       }
     },
-    _find: function (_name, _call_back) {
+    _find: function(_name, _call_back) {
       var _event_bus = getApp().__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
-        var _source = _event_bus[i].source;
-        if (_name && _source.name == _name) {
-          _call_back.apply(_source, arguments);
+        if (_name && _event_bus[i].name == _name) {
+          _call_back.apply(_event_bus[i].source, arguments);
         }
       }
     },

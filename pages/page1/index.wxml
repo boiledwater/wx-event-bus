@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <text>page event from {{text}}</text>
+  <text>page event from [{{text}}]</text>
   <demo />
 
   <button bindtap="postComponetEvent">Post event to component</button>

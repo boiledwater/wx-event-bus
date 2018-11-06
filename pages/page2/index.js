@@ -26,4 +26,14 @@ Page({
       delta: 1
     });
   },
+  findPageEvent: function() {
+    getApp().getWXEventBus().find('pages/page1/index', function() {
+      this.setData({
+        text: 'find function'
+      });
+    });
+    wx.navigateBack({
+      delta: 1
+    });
+  }
 })
