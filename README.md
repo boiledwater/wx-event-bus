@@ -92,7 +92,7 @@ getApp().getWXEventBus().find(['pages/page1/index'], {
       }
     });
 </code></pre>
-如果找到'pages/page1/index'page的话，就执行success方法,否则执行fail方法；
+如果找到"pages/page1/index" page的话，就执行success方法,否则执行fail方法；
 <pre><code>
 getApp().getWXEventBus().find(['pages/page1/index'],function() {
         wx.showToast({
@@ -100,4 +100,4 @@ getApp().getWXEventBus().find(['pages/page1/index'],function() {
         })
       });
 </code></pre>
-如果找到'pages/page1/index'page的话，就执行相应方法;
+如果找到"pages/page1/index" page的话，就执行相应方法;
