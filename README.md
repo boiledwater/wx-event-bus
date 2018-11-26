@@ -77,3 +77,27 @@ registerEvent: function() {
         {name:'getData',}
         ]);
 </code></pre>
+## find方法;
+<pre><code>
+getApp().getWXEventBus().find(['pages/page1/index'], {
+      success: function() {
+        wx.showToast({
+          title: 'found',
+        })
+      },
+      fail: function() {
+        wx.showToast({
+          title: 'No found',
+        })
+      }
+    });
+</code></pre>
+
+<pre><code>
+getApp().getWXEventBus().find(['pages/page1/index'],function() {
+        wx.showToast({
+          title: 'found',
+        })
+      });
+</code></pre>
+如果找到'pages/page1/index'page的话，就执行相应方法;
