@@ -35,5 +35,19 @@ Page({
     wx.navigateBack({
       delta: 1
     });
+  },
+  noFindPageEvent: function() {
+    getApp().getWXEventBus().find('pages/page1/index2', {
+      success: function() {
+        wx.showToast({
+          title: 'found',
+        })
+      },
+      fail: function() {
+        wx.showToast({
+          title: 'No found',
+        })
+      }
+    });
   }
 })

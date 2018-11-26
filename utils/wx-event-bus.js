@@ -153,12 +153,24 @@
       } else {
         this._find(_name, _call_back)
       }
+      if (typeof _call_back == 'object') {
+        if (!_call_back.successed && typeof _call_back.fail == 'function') {
+          _call_back.fail();
+        }
+      }
     },
     _find: function(_name, _call_back) {
       var _event_bus = getApp().__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
         if (_name && _event_bus[i].name == _name) {
-          _call_back.apply(_event_bus[i].source, arguments);
+          if (typeof _call_back == 'function') {
+            _call_back.apply(_event_bus[i].source, arguments);
+          } else {
+            if (typeof _call_back.success == 'function') {
+              _call_back.success.apply(_event_bus[i].source, arguments);
+              _call_back.successed = true;
+            }
+          }
         }
       }
     },

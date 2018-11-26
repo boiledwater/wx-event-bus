@@ -1,3 +1,4 @@
 <button bindtap="postComponetEvent">Post event to page1 component</button>
 <button bindtap="postPageEvent">Post event to page1</button>
 <button bindtap="findPageEvent">Find page1</button>
+<button bindtap="noFindPageEvent">Not find</button>
