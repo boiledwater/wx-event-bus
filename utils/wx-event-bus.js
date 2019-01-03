@@ -106,7 +106,7 @@
     registerApp: function(_app_this) {
       this.register({
         name: 'app',
-        type: 'page',
+        type: 'app',
         source: _app_this
       });
     },
