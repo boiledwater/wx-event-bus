@@ -92,7 +92,7 @@
       _app.__event_bus = [];
       _app._wx_event_bus = this;
       _app.getWXEventBus = function() {
-        return getApp()._wx_event_bus;
+        return this._wx_event_bus;
       }
       _app.asyncFunction = function(nest_function, callback) {
         this.__set_time_out_id = setTimeout(function() {
@@ -102,6 +102,7 @@
           }
         }, 0);
       };
+      this.__app = _app;
     },
     registerApp: function(_app_this) {
       this.register({
@@ -125,15 +126,15 @@
       });
     },
     register: function(obj) {
-      console.log('registerPage:' + JSON.stringify(obj));
-      getApp().__event_bus.push({
+      console.log('registerPage:' + obj);
+      this.__app.__event_bus.push({
         name: obj.name,
         type: obj.type,
         source: obj.source
       });
     },
     unRegister: function(_this) {
-      var _event_bus = getApp().__event_bus;
+      var _event_bus = this.__app.__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
         if (_event_bus[i].source == _this) {
           console.log('unRegisterPage:' + _this);
@@ -160,7 +161,7 @@
       }
     },
     _find: function(_name, _call_back) {
-      var _event_bus = getApp().__event_bus;
+      var _event_bus = this.__app.__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
         if (_name && _event_bus[i].name == _name) {
           if (typeof _call_back == 'function') {
@@ -178,7 +179,7 @@
      * [{name:'',data:''}]
      */
     postEvent: function(_event_obj, _name) {
-      console.log('post event:' + JSON.stringify(_event_obj));
+      console.log('post event:' + _event_obj);
       if (Array.isArray(_event_obj)) {
         for (var i = 0, length = _event_obj.length; i < length; i++) {
           this._postEvent(_event_obj[i], _name)
@@ -188,7 +189,7 @@
       }
     },
     _postEvent: function(_event_obj, _name) {
-      var _event_bus = getApp().__event_bus;
+      var _event_bus = this.__app.__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
         var _source = _event_bus[i].source;
         var __bus_event = _source.__bus_event;
@@ -208,9 +209,9 @@
             _event_function.call(_source, _event_data);
           }
         })(_source, _event_function, _event_obj.data);
-        getApp().asyncFunction(_asyn_function, (function(_source, _event_obj) {
+        this.__app.asyncFunction(_asyn_function, (function(_source, _event_obj) {
           return function() {
-            console.log(_source.name + ':invoke event success;' + JSON.stringify(_event_obj));
+            console.log(_source.name + ':invoke event success;' + _event_obj);
           };
         })(_source, _event_obj));
       }
