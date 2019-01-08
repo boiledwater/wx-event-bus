@@ -4,7 +4,7 @@ import {
 
 App({
   onLaunch: function() {
-    WX_EventBus.init(this);
+    WX_EventBus.setDebug(true).init(this);
   },
   globalData: {
 

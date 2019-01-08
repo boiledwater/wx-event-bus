@@ -88,6 +88,11 @@
     })(Component);
   })();
   var WX_EventBus = {
+    __debug: false,
+    setDebug: function(debug) {
+      this.__debug = debug;
+      return this;
+    },
     init: function(_app) {
       _app.__event_bus = [];
       _app._wx_event_bus = this;
@@ -126,8 +131,10 @@
       });
     },
     register: function(obj) {
-      console.log('registerPage:');
-      console.log(obj);
+      if (this.__debug) {
+        console.log('registerPage:');
+        console.log(obj);
+      }
       this.__app.__event_bus.push({
         name: obj.name,
         type: obj.type,
@@ -138,8 +145,10 @@
       var _event_bus = this.__app.__event_bus;
       for (var i = _event_bus.length - 1; i > -1; i--) {
         if (_event_bus[i].source == _this) {
-          console.log('unRegisterPage:');
-          console.log(_this);
+          if (this.__debug) {
+            console.log('unRegisterPage:');
+            console.log(_this);
+          }
           _event_bus.splice(i, 1);
           break;
         }
@@ -181,8 +190,10 @@
      * [{name:'',data:''}]
      */
     postEvent: function(_event_obj, _name) {
-      console.log('post event:');
-      console.log(_event_obj);
+      if (this.__debug) {
+        console.log('post event:');
+        console.log(_event_obj);
+      }
       if (Array.isArray(_event_obj)) {
         for (var i = 0, length = _event_obj.length; i < length; i++) {
           this._postEvent(_event_obj[i], _name)
@@ -214,8 +225,10 @@
         })(_source, _event_function, _event_obj.data);
         this.__app.asyncFunction(_asyn_function, (function(_source, _event_obj) {
           return function() {
-            console.log(_source.name + ':invoke event success:');
-            console.log(_event_obj);
+            if (WX_EventBus.__debug) {
+              console.log(_source.name + ':invoke event success:');
+              console.log(_event_obj);
+            }
           };
         })(_source, _event_obj));
       }

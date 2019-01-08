@@ -15,7 +15,8 @@ import {
 
 App({
   onLaunch: function() {
-    WX_EventBus.init(this);//初始化event bus
+    //setDebug(true)输出相关日志;默认为false;
+    WX_EventBus.setDebug(true).init(this);//初始化event bus
   },
   globalData: {
 
