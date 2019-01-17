@@ -30,8 +30,8 @@ App({
 <pre><code>
 registerEvent: function() {
     return {
-      refreshData: function(v) {
-        this.setData(v);//this为当前app对象
+      refreshUserInfo: function(v) {
+        this.refreshUserInfo(v);//this为当前app对象
       }
     }
   }
