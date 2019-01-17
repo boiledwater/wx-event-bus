@@ -36,7 +36,7 @@ registerEvent: function() {
     }
   }
 </code></pre>
-以上就在App对象里注册了refreshData事件;当收到相应事件的时候，就调用相应的方法；
+以上就在App对象里注册了refreshUserInfo事件;当收到相应事件的时候，就调用相应的方法；
 ### 二、Page注册事件
 在page里重写registerEvent方法:
 <pre><code>
