@@ -24,7 +24,20 @@ App({
 })
 </code></pre>
 ## 注册事件
-### 一、Page注册事件
+支持App,Page,Component注册事件；
+### 一、App注册事件
+在app里重写registerEvent方法:
+<pre><code>
+registerEvent: function() {
+    return {
+      refreshData: function(v) {
+        this.setData(v);//this为当前app对象
+      }
+    }
+  }
+</code></pre>
+以上就在App对象里注册了refreshData事件;当收到相应事件的时候，就调用相应的方法；
+### 二、Page注册事件
 在page里重写registerEvent方法:
 <pre><code>
 registerEvent: function() {
@@ -37,7 +50,7 @@ registerEvent: function() {
 </code></pre>
 以上就在page对象里注册了refreshData事件;当收到相应事件的时候，就调用相应的方法；
 
-### 二、Component注册事件
+### 三、Component注册事件
 在component methods里重写registerEvent方法,类似page里注册事件.
 <pre><code>
 /**
