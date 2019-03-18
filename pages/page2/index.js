@@ -28,12 +28,16 @@ Page({
   },
   findPageEvent: function() {
     getApp().getWXEventBus().find('pages/page1/index', function() {
-      this.setData({
-        text: 'find function'
+      wx.showToast({
+        title: 'find success',
+        complete: function() {
+          setTimeout(function() {
+            wx.navigateBack({
+              delta: 1
+            });
+          }, 1500);
+        }
       });
-    });
-    wx.navigateBack({
-      delta: 1
     });
   },
   noFindPageEvent: function() {

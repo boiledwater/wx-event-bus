@@ -130,11 +130,18 @@ var WX_EventBus = {
     }
     _app.asyncFunction = function(nest_function, callback) {
       this.__set_time_out_id = setTimeout(function() {
-        var result = nest_function();
-        if (callback) {
-          callback(result);
+        try {
+          var result = nest_function();
+          if (callback) {
+            callback(result);
+          }
+        } finally {
+          if (nest_function.__set_time_out_id) {
+            clearTimeout(nest_function.__set_time_out_id);
+          }
         }
       }, 0);
+      nest_function.__set_time_out_id = this.__set_time_out_id;
     };
     this.__app = _app;
   },
