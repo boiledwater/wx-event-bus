@@ -171,11 +171,22 @@ var WX_EventBus = {
       console.log('registerPage:');
       console.log(obj);
     }
-    this.__app.__event_bus.push({
-      name: obj.name,
-      type: obj.type,
-      source: obj.source
+    let target_obj = null;
+    this.__app.__event_bus.forEach(function(_obj) {
+      if (_obj.source == obj.source) {
+        target_obj = obj;
+      }
     });
+    if (target_obj == null) {
+      this.__app.__event_bus.push({
+        name: obj.name,
+        type: obj.type,
+        source: obj.source
+      });
+    } else {
+      target_obj.name = obj.name;
+      target_obj.type = obj.type;
+    }
   },
   unRegister: function(_this) {
     var _event_bus = this.__app.__event_bus;
